@@ -4,7 +4,7 @@ name: Translate README
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * 1'  # 每天运行
+    - cron: '0 1 * * 1'  # 每天运行
 
 jobs:
   translate:
@@ -18,7 +18,7 @@ jobs:
 
       - name: Clone ripienaar/free-for-dev
         run: |
-          git clone https://github.com/ripienaar/free-for-dev.git free-for-dev
+          git clone https://github.com/zhezzma/free-for-dev-cn.git free-for-dev
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -28,14 +28,6 @@ jobs:
       - name: Install dependencies
         run: |
           npm install
-          
-      - name: Translate README
-        env:
-          OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          OPENAI_MODEL_ID: ${{ secrets.OPENAI_MODEL_ID }}
-        run: |
-          node translate.js free-for-dev/README.md README.md
 
       - name: Commit and push if changed
         env:
